@@ -1,5 +1,4 @@
 asgiref==3.5.0
-backports.zoneinfo==heroku buildpacks:set https://github.com/heroku/heroku-buildpack-python.git
 certifi==2021.10.8
 charset-normalizer==2.0.12
 Django==4.0.4
