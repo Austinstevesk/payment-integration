@@ -1,1 +1,1 @@
-web: gunicorn chatwoot.wsgi
+web: gunicorn chatwoot.wsgi --log-file 
