@@ -37,3 +37,6 @@ def payment_complete(request):
     body = json.loads(request.body)
     print('Body:', body)
     return JsonResponse('Payment completed!', safe=False)
+
+def home(request):
+    return render(request, 'woot_paypal/index.html')

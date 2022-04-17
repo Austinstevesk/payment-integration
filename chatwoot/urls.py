@@ -25,6 +25,7 @@ from woot_paypal import views as paypal_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     #path('paypal-checkout/', paypal_views.checkout),
+    path('', paypal_views.home),
     path('purchase/', paypal_views.payment),
     path('register/', paypal_views.register, name='register'),
     path('mpesa/', include(mpesa_urls)),

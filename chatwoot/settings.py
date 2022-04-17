@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%)d!fr97xp!0#+j*zuwdjh_iq4_im$^-jea*&iwxiy&r!f*v5o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chatndovu.herokuapp.com']
 
 
 # Application definition
