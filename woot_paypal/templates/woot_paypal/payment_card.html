@@ -1,0 +1,94 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Purchase Omnichannel</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'woot_paypal/css/style.css' %}">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="productHolder">
+            <div class="card">
+                <img src="{% static 'woot_paypal/media/chat.jpg' %}" width="300" height="250" margin-top="50px" alt="Purchase"/>
+                <div class="cardText">
+                    <p class="categoryText"><b>Purchase Omnichannel</b></p><br>
+                    <p class="descriptioText"><b>Product Features</b></p>
+                    <p class="descriptionText">Chat Widget Integration</p>
+                    <p class="descriptionText">Email Integration</p>
+                    <p class="descriptionText">WhatsApp Integration</p>
+                    <p class="descriptionText">Facebook Integration</p>
+                    <p class="descriptionText">Instagram Integration</p>
+                    <p class="descriptionText">Twitter Integration</p>
+                    <p class="priceText"><span>20,000</span>KES</p>
+                    <br>
+
+                    <button type="button" class="buy">
+                        <p class="buyText">M-Pesa</p>
+                    </button>
+
+                    <div id="paypal-button-container"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <script src="https://www.paypal.com/sdk/js?client-id=ATzsK5SbIeV6yO3lBqOnqFIe1WrRERl1DbAdVDqbHEh-gfulucOBw3tQDvt3n7pGV1qkJ6kLCL3FVDNd&currency=USD"></script>
+        <script>
+
+            function redirectOmnichannel(){
+                location.href("https://chat.ndovucloud.com/app/auth/signup");
+            }
+
+            paypal.Buttons({
+                style: {
+                    color: 'gold',
+                    shape: 'pill',
+                    label: 'pay',
+                    height: 40
+                },
+              // Sets up the transaction when a payment button is clicked
+              createOrder: (data, actions) => {
+                return actions.order.create({
+                  purchase_units: [{
+                    amount: {
+                      value: '0.01' // Can also reference a variable or function
+                    }
+                  }]
+                });
+              },
+              // Finalize the transaction after payer approval
+              onApprove: (data, actions) => {
+                return actions.order.capture().then(function(orderData) {
+                  // Successful capture! For dev/demo purposes:
+                  //console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                  const transaction = orderData.purchase_units[0].payments.captures[0];
+                  //alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                  //redirect();
+                  // When ready to go live, remove the alert and show a success message within this page. For example:
+                  // const element = document.getElementById('paypal-button-container');
+                  console.log(`Transaction ${transaction.status}: ${transaction.id}`)
+                  element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                  actions.redirect('https://chat.ndovucloud.com/app/auth/signup');
+                });
+              }
+            }).render('#paypal-button-container');
+          </script>
+
+        
+        <script src="" async defer></script>
+    </body>
+</html>
+{% endblock content %}
