@@ -139,7 +139,7 @@ MPESA_CONFIG = {
 
     'CONSUMER_KEY': '72TGd4LMPuDNrJu3vJILY4v2ocQUK5GS', 
     'CONSUMER_SECRET': '2rqCLwa2zD1fE0Tj', 
-    'HOST_NAME': 'https://chatndovucloud.herokuapp.com', 
+    'HOST_NAME': 'https://ndovuchat.herokuapp.com', 
     'PASS_KEY': 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919', 
     'SAFARICOM_API': 'https://sandbox.safaricom.co.ke', 
     'SHORT_CODE': '174379'
