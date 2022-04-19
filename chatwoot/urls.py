@@ -17,8 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from mpesa.urls import mpesa_urls
-
+from mpesa_app import urls as mpesa_urls
 
 from woot_paypal import views as paypal_views
 
@@ -26,7 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('paypal-checkout/', paypal_views.checkout),
     path('', paypal_views.home),
-    path('purchase/', paypal_views.payment),
+    path('purchase/', paypal_views.payment, name='purchase'),
+    path('pay/', paypal_views.mpesa_payment, name='mpesa-payment'),
     path('register/', paypal_views.register, name='register'),
     path('mpesa/', include(mpesa_urls)),
     #path('complete/', paypal_views.payment_complete, name='complete'),

@@ -1,5 +1,7 @@
 {% load static %}
 {% block content %}
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -7,7 +9,7 @@
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta application/json; charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Purchase Omnichannel</title>
         <meta name="description" content="">
@@ -34,9 +36,22 @@
                     <p class="priceText"><span>20,000</span>KES</p>
                     <br>
 
-                    <button type="button" class="buy">
-                        <p class="buyText">M-Pesa</p>
-                    </button>
+                </div>
+
+                      <button id="open-popup"><p class="buyText">M-Pesa</p></button><br>
+
+                      <div id="popup">
+                        <div class="popup-content">
+                          <form action="{% url 'purchase' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                          <label class="phone">Phone Number</label>
+                          <input type="text" height="40px" placeholder="254.. or 07..." id="phone-number" name="phone-number"/>
+                          <button type="submit" value="Submit" class="buy"><p class="buyText">Make Payment</p></button>
+                          <button id="close-popup">Close</button>
+                        </form>
+                        </div>
+                      </div>
+                      <!--Paypal-->
 
                     <div id="paypal-button-container"></div>
 
@@ -44,7 +59,31 @@
 
             </div>
 
-        </div>
+ 
+          
+
+
+        
+        <script>
+
+          var popup = document.getElementById("popup")
+          var openPopup = document.getElementById("open-popup")
+          var closePopup = document.getElementById('close-popup')
+
+          openPopup.addEventListener('click', () => {
+            popup.style.display = "block";
+          })
+          
+          closePopup.addEventListener('click', () => {
+            popup.style.display = "none";
+          })
+
+          function pay(){
+
+          }
+
+        </script>
+
         <script src="https://www.paypal.com/sdk/js?client-id=ATzsK5SbIeV6yO3lBqOnqFIe1WrRERl1DbAdVDqbHEh-gfulucOBw3tQDvt3n7pGV1qkJ6kLCL3FVDNd&currency=USD"></script>
         <script>
 
