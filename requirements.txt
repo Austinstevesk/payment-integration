@@ -5,15 +5,13 @@ charset-normalizer==2.0.12
 dj-database-url==0.5.0
 Django==4.0.4
 django-crispy-forms==1.14.0
-django-heroku==0.3.1
 django-mpesa==2.0.11
 django-paypal==2.0
 djangorestframework==3.13.1
 gunicorn==20.1.0
 idna==3.3
-#psycopg2==2.9.3
+pkg_resources==0.0.0
 pytz==2022.1
 requests==2.27.1
 sqlparse==0.4.2
 urllib3==1.26.9
-whitenoise==6.0.0

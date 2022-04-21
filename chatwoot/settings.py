@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
-import django_heroku
+#import django_heroku
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,9 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%)d!fr97xp!0#+j*zuwdjh_iq4_im$^-jea*&iwxiy&r!f*v5o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'chatndovu.herokuapp.com']
+ALLOWED_HOSTS = ['143.244.177.50', 'pay.ndovucloud.com']
+
+CSRF_TRUSTED_ORIGINS = ['https://pay.ndovucloud.com', 'https://paypal.com']
 
 
 # Application definition
@@ -53,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'chatwoot.urls'
@@ -74,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'chatwoot.wsgi.application'
+#WSGI_APPLICATION = 'chatwoot.wsgi.application'
 
 
 # Database
@@ -122,12 +123,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+STATIC_URL = '/static/'
 
-MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -139,11 +140,11 @@ MPESA_CONFIG = {
 
     'CONSUMER_KEY': '72TGd4LMPuDNrJu3vJILY4v2ocQUK5GS', 
     'CONSUMER_SECRET': '2rqCLwa2zD1fE0Tj', 
-    'HOST_NAME': 'https://ndovuchat.herokuapp.com', 
+    'HOST_NAME': 'https://pay.ndovucloud.com', 
     'PASS_KEY': 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919', 
     'SAFARICOM_API': 'https://sandbox.safaricom.co.ke', 
     'SHORT_CODE': '174379'
 
 }
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())

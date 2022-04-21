@@ -1,5 +1,6 @@
 import json
-from django.shortcuts import render
+import requests
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic import View
 from .LipaNaMpesaOnline import sendSTK, check_payment_status
@@ -10,6 +11,7 @@ from rest_framework.response import Response
 from .models import PaymentTransaction
 from django.http import JsonResponse
 from rest_framework.permissions import AllowAny
+from chatwoot.settings import MPESA_CONFIG
 
 
 # Create your views here.
@@ -38,7 +40,11 @@ class SubmitView(APIView):
 
         transaction_id = sendSTK(phone_number, amount, entity_id, account_number=paybill_account_number)
         # b2c()
-        message = {"status": "ok", "transaction_id": transaction_id}
+        
+        # transaction = requests.post(MPESA_CONFIG['HOST_NAME']+'/mpesa/check-transaction', data=json.dumps({"trasaction_id": transaction_id}))
+        # transaction_status = transaction.json()
+        message = {"status": "ok", "transaction_id": transaction_id}# 'finished': transaction_status['finished'], 'successful': transaction_status['successful']}
+
         return Response(message, status=HTTP_200_OK)
 
 
@@ -154,6 +160,7 @@ class ConfirmView(APIView):
                 transaction.is_finished = True
                 transaction.is_successful = True
                 transaction.save()
+                return redirect('https://pay.ndovucloud.com')
 
         else:
             print('unsuccessfull')

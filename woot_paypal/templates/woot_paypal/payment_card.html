@@ -87,10 +87,6 @@
         <script src="https://www.paypal.com/sdk/js?client-id=ATzsK5SbIeV6yO3lBqOnqFIe1WrRERl1DbAdVDqbHEh-gfulucOBw3tQDvt3n7pGV1qkJ6kLCL3FVDNd&currency=USD"></script>
         <script>
 
-            function redirectOmnichannel(){
-                location.href("https://chat.ndovucloud.com/app/auth/signup");
-            }
-
             paypal.Buttons({
                 style: {
                     color: 'gold',
@@ -117,10 +113,11 @@
                   //alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
                   //redirect();
                   // When ready to go live, remove the alert and show a success message within this page. For example:
-                  // const element = document.getElementById('paypal-button-container');
+                  const element = document.getElementById('paypal-button-container');
                   console.log(`Transaction ${transaction.status}: ${transaction.id}`)
                   element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                  actions.redirect('https://chat.ndovucloud.com/app/auth/signup');
+                  window.location.href = 'https://chat.ndovucloud.com/app/auth/signup';
+                  //actions.redirect('https://pay.ndovucloud.com/register/');
                 });
               }
             }).render('#paypal-button-container');

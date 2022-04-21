@@ -21,6 +21,7 @@ class BaseModel(models.Model):
 
 
 class PaymentTransaction(models.Model):
+    id = models.AutoField(primary_key=True)
     phone_number = models.CharField(max_length=30)
     amount = models.DecimalField(max_digits=14, decimal_places=2, default=0)
     is_finished = models.BooleanField(default=False)

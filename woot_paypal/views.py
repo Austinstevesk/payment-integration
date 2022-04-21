@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.http import JsonResponse
 from django.contrib import messages
 import requests
+import time
 
 from woot_paypal import models
 from .forms import UserRegisterForm
@@ -61,12 +62,11 @@ def checkout(request):
 
 def payment(request):
     if request.method == 'POST':
-        url = "https://chatndovu.herokuapp.com/mpesa/submit/"
-        print(request)
-        print(request.POST.get('phone-number'))
+        url = "https://pay.ndovucloud.com/mpesa/submit/"
         phone_number = request.POST.get('phone-number')
         header = {
            "Content-Type":"application/json",
+
         }
         payload = {
             "phone_number" : phone_number,
@@ -74,13 +74,33 @@ def payment(request):
             "paybill_account_number": 4001637
         }
         
-        req = requests.post(url, data=json.dumps(payload), headers=header)
-        if req.status_code == 200:
-            trans_resp = req.json()
-            print(trans_resp["transaction_id"])
-            print(models.PaymentTransaction.objects.all())
-            return HttpResponse("Payment Successful")
-        print(req.status_code)
+        def get_resp():
+            req = requests.post(url, data=json.dumps(payload), headers=header)
+            if req.status_code == 200:
+                trans_resp = req.json()
+                trans_id = trans_resp["transaction_id"]
+                print(trans_id)
+                
+            return trans_id
+
+        transaction_header ={
+            "Content-Type":"application/json; charset=UTF-8"
+        }
+
+        payload = {
+            "transaction_id": get_resp()
+        }
+
+        transaction = requests.post("https://pay.ndovucloud.com/mpesa/check-transaction/", data=json.dumps(payload), headers= transaction_header)
+        trans_status = transaction.json()
+        timing = 0
+        while timing < 7:
+            if trans_status["finished"] == True and trans_status["successful"] == True:
+                messages.success(request, "Payment Successful")
+                return redirect("register")
+
+            time.sleep(1)
+            timing += 1
         return HttpResponse("Payment Unsuccessful")
     else:
 
