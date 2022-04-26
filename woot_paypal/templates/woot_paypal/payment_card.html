@@ -11,10 +11,11 @@
     <head>
         <meta application/json; charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Purchase Omnichannel</title>
+        <title>Purchase Tuskeechat</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'woot_paypal/css/style.css' %}">
+        <link rel="shortcut icon" href="{% static 'woot_paypal/media/favicon.png' %}" type="image/png"/>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -25,7 +26,7 @@
             <div class="card">
                 <img src="{% static 'woot_paypal/media/chat.jpg' %}" width="300" height="250" margin-top="50px" alt="Purchase"/>
                 <div class="cardText">
-                    <p class="categoryText"><b>Purchase Omnichannel</b></p><br>
+                    <p class="categoryText"><b>Purchase Tuskeechat</b></p><br>
                     <p class="descriptioText"><b>Product Features</b></p>
                     <p class="descriptionText">Chat Widget Integration</p>
                     <p class="descriptionText">Email Integration</p>
@@ -33,19 +34,21 @@
                     <p class="descriptionText">Facebook Integration</p>
                     <p class="descriptionText">Instagram Integration</p>
                     <p class="descriptionText">Twitter Integration</p>
-                    <p class="priceText"><span>20,000</span>KES</p>
+                    <p class="priceText"><span>5</span>USD</p>
                     <br>
 
                 </div>
 
-                      <button id="open-popup"><p class="buyText">M-Pesa</p></button><br>
+                      <!--button id="open-popup"><p class="buyText">M-Pesa</p></button><br>-->
+
+                       <!--<button id="comingsoon"><p class="buyText">M-Pesa Coming Soon</p></button><br>-->
 
                       <div id="popup">
                         <div class="popup-content">
                           <form action="{% url 'purchase' %}" method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                           <label class="phone">Phone Number</label>
-                          <input type="text" height="40px" placeholder="254.. or 07..." id="phone-number" name="phone-number"/>
+                          <input type="text" height="40px" placeholder="254.." id="phone-number" name="phone-number"/>
                           <button type="submit" value="Submit" class="buy"><p class="buyText">Make Payment</p></button>
                           <button id="close-popup">Close</button>
                         </form>
@@ -78,13 +81,22 @@
             popup.style.display = "none";
           })
 
-          function pay(){
+          var myRedirect = function(redirectUrl) {
+          var form = $('<form action="' + redirectUrl + '" method="post">' +
+          '<input type="hidden" name="account_name" value="Test" />' +
+          '<input type="hidden" name="email" value="test@gmail.com" />' +
+          '<input type="hidden" name="user_full_name" value="Test User" />' +
+          '<input type="hidden" name="password" value="Password1!" />' +
+          '<input type="hidden" name="confirm_password" value="Password1!" />' +
+          '</form>');
+          $('body').append(form);
+          $(form).submit();
+          };
 
-          }
 
         </script>
 
-        <script src="https://www.paypal.com/sdk/js?client-id=ATzsK5SbIeV6yO3lBqOnqFIe1WrRERl1DbAdVDqbHEh-gfulucOBw3tQDvt3n7pGV1qkJ6kLCL3FVDNd&currency=USD"></script>
+        <script src="https://www.paypal.com/sdk/js?client-id=Ab6OXWxY7ZBXRO-fPWFGFKyvjvjP1w7--m_7cqXFmoESC_mNZGBMldYqtBXgj1TSz08WWDmv0HBusPor&currency=USD"></script>
         <script>
 
             paypal.Buttons({
@@ -99,7 +111,7 @@
                 return actions.order.create({
                   purchase_units: [{
                     amount: {
-                      value: '0.01' // Can also reference a variable or function
+                      value: '5.00' // Can also reference a variable or function
                     }
                   }]
                 });
@@ -116,8 +128,11 @@
                   const element = document.getElementById('paypal-button-container');
                   console.log(`Transaction ${transaction.status}: ${transaction.id}`)
                   element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                  window.location.href = 'https://chat.ndovucloud.com/app/auth/signup';
+                  //window.location = 'https://chat.ndovucloud.com/api/v1/accounts?account_name=test&email=test@gmail.com&user_full_name=Test&password=Password1!&confirm_password=Password1!';
                   //actions.redirect('https://pay.ndovucloud.com/register/');
+                  window.location.href = 'https://tuskeechat.ndovucloud.com/app/auth/signup'
+                  //window.location.replace('https://chat.ndovucloud.com/api/v1/accounts?account_name=  test&email=test@gmail.com&user_full_name=Test&password=Password1!&confirm_password=Password1!');
+                  //window.location.replace(myRedirect('https://chat.ndovucloud.com/app/auth/signup'));
                 });
               }
             }).render('#paypal-button-container');

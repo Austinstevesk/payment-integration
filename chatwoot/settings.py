@@ -28,9 +28,12 @@ SECRET_KEY = 'django-insecure-%)d!fr97xp!0#+j*zuwdjh_iq4_im$^-jea*&iwxiy&r!f*v5o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['143.244.177.50', 'pay.ndovucloud.com']
+ALLOWED_HOSTS = ['143.244.177.50', 'pay.ndovucloud.com', '157.230.51.152']
 
-CSRF_TRUSTED_ORIGINS = ['https://pay.ndovucloud.com', 'https://paypal.com']
+CORS_ALLOW_ALL_ORIGINS = True
+
+
+CSRF_TRUSTED_ORIGINS = ['https://pay.ndovucloud.com', 'https://*paypal.com']
 
 
 # Application definition
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'crispy_forms',
     'mpesa_app',
     'woot_paypal',
@@ -50,11 +54,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'chatwoot.urls'
@@ -138,13 +144,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MPESA_CONFIG = { 
 
-    'CONSUMER_KEY': '72TGd4LMPuDNrJu3vJILY4v2ocQUK5GS', 
-    'CONSUMER_SECRET': '2rqCLwa2zD1fE0Tj', 
+    'CONSUMER_KEY': 'N4961wbQ5B8E1mg5VFU3peflRh74JBu4', 
+    'CONSUMER_SECRET': 'VOmlbfHM2AxBFiWF', 
     'HOST_NAME': 'https://pay.ndovucloud.com', 
     'PASS_KEY': 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919', 
     'SAFARICOM_API': 'https://sandbox.safaricom.co.ke', 
     'SHORT_CODE': '174379'
 
 }
+
 
 #django_heroku.settings(locals())

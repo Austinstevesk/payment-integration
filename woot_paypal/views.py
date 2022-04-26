@@ -74,34 +74,38 @@ def payment(request):
             "paybill_account_number": 4001637
         }
         
-        def get_resp():
-            req = requests.post(url, data=json.dumps(payload), headers=header)
-            if req.status_code == 200:
-                trans_resp = req.json()
-                trans_id = trans_resp["transaction_id"]
-                print(trans_id)
-                
-            return trans_id
+        # def get_resp():
+        req = requests.post(url, data=json.dumps(payload), headers=header)
+        if req.status_code == 200:
+            trans_resp = req.json()
+            trans_id = trans_resp["transaction_id"]
+            print(trans_id)
 
-        transaction_header ={
-            "Content-Type":"application/json; charset=UTF-8"
-        }
+            return HttpResponse("Payment Successful")
+        else:
+            return HttpResponse("Payment Unsuccessful")
+            
+        #     return trans_id
 
-        payload = {
-            "transaction_id": get_resp()
-        }
+        # transaction_header ={
+        #     "Content-Type":"application/json; charset=UTF-8"
+        # }
 
-        transaction = requests.post("https://pay.ndovucloud.com/mpesa/check-transaction/", data=json.dumps(payload), headers= transaction_header)
-        trans_status = transaction.json()
-        timing = 0
-        while timing < 7:
-            if trans_status["finished"] == True and trans_status["successful"] == True:
-                messages.success(request, "Payment Successful")
-                return redirect("register")
+        # payload = {
+        #     "transaction_id": get_resp()
+        # }
 
-            time.sleep(1)
-            timing += 1
-        return HttpResponse("Payment Unsuccessful")
+        # transaction = requests.post("https://pay.ndovucloud.com/mpesa/check-transaction/", data=json.dumps(payload), headers= transaction_header)
+        # trans_status = transaction.json()
+        # timing = 0
+        # while timing < 7:
+        #     if trans_status["finished"] == True and trans_status["successful"] == True:
+        #         messages.success(request, "Payment Successful")
+        #         return redirect("register")
+
+        #     time.sleep(1)
+        #     timing += 1
+        # return HttpResponse("Payment Unsuccessful")
     else:
 
         return render(request, 'woot_paypal/payment_card.html')

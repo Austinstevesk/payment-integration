@@ -73,6 +73,21 @@ span {
     transition: 0.4s;
 }
 
+#comingsoon{
+    background: #52B44B;
+    color: #343EAB;
+    opacity: 0.9;
+    border-radius: 60px;
+    display: inline-block;
+    height: 40px;
+    width: 300px;
+    box-sizing: border-box;
+    border: transparent;
+    cursor: pointer;
+    outline: none;
+    transition: 0.4s;
+}
+
 .buy{
     background: #343EAB;
     color: white;

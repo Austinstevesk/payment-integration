@@ -4,6 +4,8 @@ import distutils.core
 import distutils.errors
 import distutils.extension
 
+from setuptools.extern.six.moves import map
+
 from .monkey import get_unpatched
 
 
@@ -34,7 +36,7 @@ class Extension(_Extension):
         # The *args is needed for compatibility as calls may use positional
         # arguments. py_limited_api may be set only via keyword.
         self.py_limited_api = kw.pop("py_limited_api", False)
-        super().__init__(name, sources, *args, **kw)
+        _Extension.__init__(self, name, sources, *args, **kw)
 
     def _convert_pyx_sources_to_lang(self):
         """
